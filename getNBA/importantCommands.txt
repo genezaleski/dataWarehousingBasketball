@@ -1,0 +1,28 @@
+#convert SQLite closely to mySQL Format
+
+sqlite3 basketball.sqlite .dump | python convertSQLite.py > basketballConverted.sql
+
+------------------------------------------------------------------------------------
+
+#Split the resultant .sql file into multiple SQL scripts b/c full script is too big and has errors
+
+#(made copy of original Converted file)
+
+csplit digits=2 --quiet --prefix=nba.sql basketballConvertedSplit.sql "/DROP TABLE IF EXISTS IF/+1" "{*}"
+
+#I manually renamed the generated scripts (nbaXX.sql) to have sensible names.
+
+#nba01.sql -> insertPlayers.sql
+#nba02.sql -> insertTeams.sql
+#nba03.sql -> insertTeamAttributes.sql
+#nba04.sql -> insertTeamHistory.sql
+#nba05.sql -> insertPlayerAttributes.sql
+#nba06.sql -> insertGameOfficials.sql
+#nba07.sql -> insertInactivePlayers.sql
+#nba08.sql -> insertGames.sql
+#nba09.sql -> insertNews.sql
+#nba10.sql -> insertMissingNews.sql
+
+-----------------------------------------------------------------------------------
+
+
